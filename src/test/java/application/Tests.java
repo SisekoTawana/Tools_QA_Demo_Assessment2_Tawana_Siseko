@@ -22,11 +22,17 @@ public class Tests {
     ExtentReports extent;
     ExtentTest test;
     Home home;
-    Tees tees;
+    Product products;
+    CompareProducts compareProducts;
+    ProductDetails productDetails;
+    Cart cart;
 
     public Tests(){
         home = new Home();
-        tees = new Tees();
+        products = new Product();
+        cart = new Cart();
+        compareProducts = new CompareProducts();
+        productDetails = new ProductDetails();
     }
     @Parameters("browser")
     @BeforeTest
@@ -56,34 +62,62 @@ public class Tests {
     }
     @Test
     @Parameters("url")
-    //invalid login test
-    public void invalidLogin(String url){
-        test.createNode("invalid login test", "TC-001");
-    home.navigateToHomePage(url);
-    home.captureCredentialsAndSubmit();
-    home.verifyLoginFails();
-}
-    @Test
-    //valid login
+    //valid login test
     public void validLogin(String url){
+        test.createNode("Valid login test", "TC-001");
+        home.navigateToHomePage(url);
+        home.captureCredentialsAndSubmit();
+        home.verifyLoginFails();
 
     }
     @Test
-    //add to cart
-    public void addToCompareList(String url){
-        tees.addRadiantTeeWhileNotLoggedIn();
-        tees.addBreatheEasyTankWhileNotLoggedIn();
-        tees.
+    //add Radiant Tee
+    public void addRadiantTee(String url){
+        home.navigateToHomePage(url);
+        compareProducts.clickAddToCompareMultiView();
+        compareProducts.clickComparisonList();
     }
     @Test
-    //add 3 star to cart
-    public void add3StarToCart(String url){
-
+    //add Breathe Easy Tank
+    public void addBreatheEasyTank(String url) {
+        home.navigateToHomePage(url);
+        products.addBreatheEasyTank();
+        compareProducts.clickAddToCompare();
+        compareProducts.clickComparisonList();
+    }
+    @Test
+    public void addAndRemoveArgusAllWeatherTank(String url) {
+        home.navigateToHomePage(url);
+        products.addArgusAllWeatherTank();
+        compareProducts.clickAddToCompare();
+        compareProducts.clickComparisonList();
+        compareProducts.removeToCompareList();
+    }
+    @Test
+    //add product to cart
+    public void addProductToCart(String url){
+        home.navigateToHomePage(url);
+        products.addHeroHoodie();
+        productDetails.clickSize();
+        productDetails.clickColor();
+        cart.addProductToCart();
+        cart.viewShoppingCart();
+    }
+    @Test
+    //add 3 star product to cart
+    public void add3StarProductToCartWhileLoggedIn(String url){
+        home.navigateToHomePage(url);
+        home.clickSignInLink();
+        home.captureCredentialsAndSubmit();
+        home.clickSignInButton();
+        home.navigateToHomePage(url);
+        home.navigateToTeesAndClick();
+        cart.add3StarProductToCart();
     }
     @Test
     //add Miko Pullover Hoodie
     public void addMikoPulloverHoodie(String url){
-
+         home.navigateToHomePage(url);
     }
     @AfterTest
     //tearDown
