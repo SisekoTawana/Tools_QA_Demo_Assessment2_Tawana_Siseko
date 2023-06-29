@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class Product {
     WebDriver driver = Tests.driver;
-    Home home;
     @FindBy(linkText = "Radiant Tee")
     WebElement radiantTee;
     @FindBy(linkText = "Breathe-Easy Tank")
@@ -15,6 +14,8 @@ public class Product {
     WebElement argusAllWeatherTank;
     @FindBy(className = "Hero Hoodie")
     WebElement heroHoodie;
+    @FindBy(linkText = "Miko Pullover Hoodie")
+    WebElement mikoPulloverHoodie;
 
     public void addRadiantTee() {
 
@@ -29,5 +30,9 @@ public class Product {
     }
     public void addHeroHoodie() {
         heroHoodie.click();
+    }
+
+    public void clickMikoPulloverHoodie() {
+        mikoPulloverHoodie.click();
     }
 }
