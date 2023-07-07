@@ -1,38 +1,57 @@
 package application;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static application.Home.actions;
+
 public class Product {
-    WebDriver driver = Tests.driver;
-    @FindBy(linkText = "Radiant Tee")
-    WebElement radiantTee;
-    @FindBy(linkText = "Breathe-Easy Tank")
-    WebElement breatheEasyTank;
-    @FindBy(linkText = "Argus All-Weather Tank")
-    WebElement argusAllWeatherTank;
-    @FindBy(className = "Hero Hoodie")
-    WebElement heroHoodie;
-    @FindBy(linkText = "Miko Pullover Hoodie")
-    WebElement mikoPulloverHoodie;
+    private WebDriver driver;
 
-    public void addRadiantTee() {
-
+    public Product(WebDriver driver) {
+        this.driver = driver;
     }
 
+    public void addRadiantTee() throws InterruptedException {
+        WebElement hover = driver.findElement(By.xpath("(//img[@alt='Radiant Tee'])[1]"));
+        actions.moveToElement(hover).build().perform();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//a[@title='Add to Compare'])[1]")).click();
+        driver.findElement(radiantTee()).click();}
+
     public void addBreatheEasyTank() {
-        breatheEasyTank.click();
+        driver.findElement(breatheEasyTank()).click();
     }
 
     public void addArgusAllWeatherTank() {
-        argusAllWeatherTank.click();
+        driver.findElement(argusAllWeatherTank()).click();
     }
     public void addHeroHoodie() {
-        heroHoodie.click();
+        driver.findElement(heroHoodie()).click();
+    }
+    public void clickThreeStarProduct(){
+        driver.findElement(threeStarProduct()).click();
     }
 
     public void clickMikoPulloverHoodie() {
-        mikoPulloverHoodie.click();
+        driver.findElement(mikoPulloverHoodie()).click();
+    }
+    private By radiantTee(){
+        return By.linkText("Radiant Tee");
+    }
+    private By breatheEasyTank() {
+        return By.linkText("Breathe-Easy Tank");
+    }
+    private By argusAllWeatherTank() {
+        return By.linkText("Argus All-Weather Tank");
+    }
+    private By threeStarProduct(){ return By.xpath("(//img[contains(@alt,'HeatTec® Tee')])[1]");}
+    private By heroHoodie() {
+        return By.linkText("Hero Hoodie");
+    }
+    private By mikoPulloverHoodie() {
+        return By.linkText("Miko Pullover Hoodie");
     }
 }

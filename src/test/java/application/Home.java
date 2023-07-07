@@ -1,57 +1,83 @@
 package application;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import utilities.ActionHelper;
+
+import java.time.Duration;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class Home {
-WebDriver driver = Tests.driver;
-ExtentTest test = Tests.test;
-    @FindBy(className = "logo")
-    WebElement logolink;
-    @FindBy(linkText = "Sign In")
-    WebElement signinLink;
-    @FindBy(id = "email")
-    WebElement emailAddress;
-    @FindBy(id = "pass")
-    WebElement password;
-    @FindBy(id = "send2")
-    WebElement signin;
-    @FindBy(className = "greet welcome")
-    WebElement loginPassMessega;
-    @FindBy(id = "ui-id-21")
-    WebElement toTees;
-    public void navigateToHomePage(String url){
-        test.log(Status.INFO, "navigating to home Page");
-        driver.get(url);
+    private static WebDriver driver;
+    static Actions actions = new Actions(Tests.driver);
 
-        logolink.click();
-        Assert.assertEquals(driver.getCurrentUrl(),"https://magento.softwaretestingboard.com/");
-        ActionHelper.talkScreenshot(driver);
+    public Home(WebDriver driver) {
+        this.driver = driver;
     }
-    public void captureCredentialsAndSubmit() {
-        test.log(Status.INFO, "Capturing signing in details and submitting");
-        String email_address = "Sese";
-        String password = "Tata";
-        this.emailAddress.sendKeys(email_address);
-        this.password.sendKeys(password);
-        ActionHelper.talkScreenshot(driver);
-        signin.click();
+
+    public void navigateToHomePage() {
+        driver.findElement(logolink()).click();
+        Assert.assertEquals(driver.getCurrentUrl(), "https://magento.softwaretestingboard.com/");
     }
-    public void navigateToTeesAndClick() {
-        toTees.click();
+    public void setEmailAddress(String emailData) {
+       WebElement EmailElement = driver.findElement(emailAddress());
+       EmailElement.clear();
+       driver.findElement(emailAddress()).sendKeys(emailData/*"siseko@digilink.africa"*/);
+    }
+    public void setPassword(String passwordData) {
+        WebElement passwordElement = driver.findElement(password());
+        passwordElement.clear();
+        driver.findElement(password()).sendKeys(passwordData/*"SetoT_2023"*/);
+    }
+    public void navigateToTeesAndClick() throws InterruptedException {
+        //Hover on men
+        WebElement men = Tests.driver.findElement(By.xpath("(//a[@id='ui-id-5'])[1]"));
+        actions.moveToElement(men).perform();
+        Thread.sleep(2000);
+        //Hover on top
+        WebElement tops = Tests.driver.findElement(By.xpath("(//a[@id='ui-id-17'])[1]"));
+        actions.moveToElement(tops).build().perform();
+        Thread.sleep(2000);
+        Tests.driver.findElement(By.xpath("(//a[@id='ui-id-21'])[1]")).click();
     }
     public void clickSignInLink() {
-        signinLink.click();
+        driver.findElement(signinLink()).click();
+    }
+    public Home clickSignIn() {
+        driver.findElement(signin()).click();
+        return new Home(driver);
+    }
+    public String verifyLoginPass() {
+        return driver.findElement(loginPassMessage()).getText();
+        /*Assert.assertEquals(driver., "https://magento.softwaretestingboard.com/");*/
+    }
+    private By logolink(){
+        return By.className("logo");
+    }
+    private By signinLink() {
+        return By.linkText("Sign In");
+    }
+    private By emailAddress(){
+        return By.id("email");
+    }
+    private By password(){
+        return By.id("pass");
     }
 
-    public void verifyLoginPass() {
-        test.log(Status.INFO, "Verifying if sign in passes");
-        Assert.assertTrue(loginPassMessega.isDisplayed());
-        ActionHelper.talkScreenshot(driver);
+    private By signin() {
+        return By.id("send2");
+    }
+
+    private By loginPassMessage() {
+        return By.className("greet welcome");
+    }
+
+    private By toTees() {
+        return By.xpath("//*[@id=\"ui-id-21\"]/span");
     }
 }

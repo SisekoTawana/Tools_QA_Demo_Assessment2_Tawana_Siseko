@@ -22,7 +22,7 @@ public class ActionHelper {
             String screenshotPath = extentReportsPath + fileSeparator +"screenshot";
 
             File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String screenshotName = "screenshot" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HH.mm.ss")) + ".html";
+            String screenshotName = "screenshot" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HH.mm.ss")) + ".png";
             String screenshot = screenshotPath + fileSeparator + screenshotName;
 
             FileUtils.copyFile(file, new File(screenshot));

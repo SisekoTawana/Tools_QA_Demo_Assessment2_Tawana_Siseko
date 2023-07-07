@@ -1,28 +1,38 @@
 package application;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CompareProducts {
-    @FindBy(xpath = "//*[@id=\"maincontent\"]/div[3]/div/div[2]/div[3]/div/div/ol/li[1]/div/div/div[4]/div/div[2]/a[2]")
-    WebElement addToCompareMultiView;
-    @FindBy(className = "action tocompare")
-    WebElement addToCompare;
-    @FindBy(linkText = "comparison list")
-    WebElement comparisonList;
-    @FindBy(xpath = "//*[@id=\"product-comparison\"]/thead/tr/td[1]/a")
-    WebElement removeArgusAllWeatherTank;
-    public void clickAddToCompareMultiView(){
-        addToCompareMultiView.click();
+    private WebDriver driver;
+    public CompareProducts(WebDriver driver){
+        this.driver = driver;
+    }
+    public void clickOkButton(){
+        driver.findElement(okButton()).click();
     }
     public void clickAddToCompare(){
-        addToCompare.click();
+        driver.findElement(addToCompare()).click();
     }
     public void clickComparisonList(){
-        comparisonList.click();
+        driver.findElement(comparisonList()).click();
     }
-
     public void removeToCompareList() {
-        removeArgusAllWeatherTank.click();
+        driver.findElement(removeArgusAllWeatherTank()).click();
+    }
+    private By okButton(){
+        return By.cssSelector("button[class='action-primary action-accept'] span");
+    }
+    private By addToCompare() {
+        return By.cssSelector("a[class='action tocompare'] span");
+    }
+    private By comparisonList() {
+        return By.linkText("comparison list");
+    }
+    private By removeArgusAllWeatherTank(){
+       return By.xpath("//*[@id=\"product-comparison\"]/thead/tr/td[1]/a");
     }
 }
+
