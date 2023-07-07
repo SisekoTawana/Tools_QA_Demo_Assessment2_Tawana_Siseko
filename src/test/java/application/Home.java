@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utilities.ActionHelper;
 
 import java.time.Duration;
 
@@ -38,10 +39,12 @@ public class Home {
         //Hover on men
         WebElement men = Tests.driver.findElement(By.xpath("(//a[@id='ui-id-5'])[1]"));
         actions.moveToElement(men).perform();
+        ActionHelper.talkScreenshot(driver);
         Thread.sleep(2000);
         //Hover on top
         WebElement tops = Tests.driver.findElement(By.xpath("(//a[@id='ui-id-17'])[1]"));
         actions.moveToElement(tops).build().perform();
+        ActionHelper.talkScreenshot(driver);
         Thread.sleep(2000);
         Tests.driver.findElement(By.xpath("(//a[@id='ui-id-21'])[1]")).click();
     }
@@ -50,6 +53,7 @@ public class Home {
     }
     public Home clickSignIn() {
         driver.findElement(signin()).click();
+        ActionHelper.talkScreenshot(driver);
         return new Home(driver);
     }
     public String verifyLoginPass() {

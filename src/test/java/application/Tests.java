@@ -97,6 +97,9 @@ public class Tests {
             Assert.fail("something went wrong during setup " + e);
             throw new RuntimeException(e);
         }
+
+        excelData = new ExcelHelper();
+        excelData.setupExcel();
     }
     @AfterMethod
     public void testResults(ITestResult result) {
@@ -125,6 +128,7 @@ public class Tests {
         products= new Product(driver);
         test = extent.createTest("TC-001:","Verify if a user not logged in can add product to compare multiple products view");
 
+        test.info("Go to the website");
         link.goTo();
         test.info("Hovering and Clicking Radiant Tee");
         home.navigateToHomePage();
@@ -155,6 +159,7 @@ public class Tests {
         Thread.sleep(2000);
         compareProducts.clickComparisonList();
         test.log(Status.INFO,"Adding the Breathe Easy Tank to comparison list");
+        Thread.sleep(2000);
         test.log(Status.INFO,"Taking a screenshot");
         ActionHelper.talkScreenshot(driver);
     }
@@ -230,6 +235,7 @@ public class Tests {
         Thread.sleep(2000);
         home.setPassword(passwordData);
         Thread.sleep(2000);
+        ActionHelper.talkScreenshot(driver);
         home.clickSignIn();
         Thread.sleep(2000);
         home.navigateToHomePage();

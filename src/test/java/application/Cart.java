@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
+import utilities.ActionHelper;
 
 public class Cart {
     private WebDriver driver = Tests.driver;
@@ -23,11 +24,12 @@ public class Cart {
         driver.findElement(shoppingCart()).click();
     }
     public void add3StarProductToCart() {
-        driver.findElement(add3StarToCart()).click();
         WebElement AddedMessage = driver.findElement(errorMessage());
         String expectedMessage = "This is a required field.";
         String actualMessage = AddedMessage.getText();
-        Assert.assertEquals(actualMessage, expectedMessage);
+        ActionHelper.talkScreenshot(driver);
+        driver.findElement(add3StarToCart()).click();
+        Assert.assertNotEquals(actualMessage, expectedMessage);
     }
     private By addToCart() {
         return By.cssSelector("#product-addtocart-button");

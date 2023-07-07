@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utilities.ActionHelper;
 
 public class CompareProducts {
     private WebDriver driver;
@@ -15,9 +16,11 @@ public class CompareProducts {
     }
     public void clickAddToCompare(){
         driver.findElement(addToCompare()).click();
+        ActionHelper.talkScreenshot(driver);
     }
     public void clickComparisonList(){
         driver.findElement(comparisonList()).click();
+        ActionHelper.talkScreenshot(driver);
     }
     public void removeToCompareList() {
         driver.findElement(removeArgusAllWeatherTank()).click();
@@ -29,7 +32,7 @@ public class CompareProducts {
         return By.cssSelector("a[class='action tocompare'] span");
     }
     private By comparisonList() {
-        return By.linkText("comparison list");
+        return By.xpath("(//a[normalize-space()='comparison list'])[1]");
     }
     private By removeArgusAllWeatherTank(){
        return By.xpath("//*[@id=\"product-comparison\"]/thead/tr/td[1]/a");

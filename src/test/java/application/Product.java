@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utilities.ActionHelper;
 
 import static application.Home.actions;
 
@@ -17,12 +18,15 @@ public class Product {
     public void addRadiantTee() throws InterruptedException {
         WebElement hover = driver.findElement(By.xpath("(//img[@alt='Radiant Tee'])[1]"));
         actions.moveToElement(hover).build().perform();
+        ActionHelper.talkScreenshot(driver);
         Thread.sleep(2000);
         driver.findElement(By.xpath("(//a[@title='Add to Compare'])[1]")).click();
-        driver.findElement(radiantTee()).click();}
+        ActionHelper.talkScreenshot(driver);
+    }
 
     public void addBreatheEasyTank() {
         driver.findElement(breatheEasyTank()).click();
+        ActionHelper.talkScreenshot(driver);
     }
 
     public void addArgusAllWeatherTank() {
@@ -32,6 +36,7 @@ public class Product {
         driver.findElement(heroHoodie()).click();
     }
     public void clickThreeStarProduct(){
+        ActionHelper.talkScreenshot(driver);
         driver.findElement(threeStarProduct()).click();
     }
 
